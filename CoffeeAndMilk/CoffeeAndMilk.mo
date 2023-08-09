@@ -2,16 +2,16 @@ package CoffeeAndMilk
   extends Modelica.Icons.Package;
 
   model Coffee "Lumped thermal element storing heat"
-    Modelica.SIunits.Temperature T(start = 353.15, fixed = true, displayUnit = "degC") "Temperature of element";
-    Modelica.SIunits.TemperatureSlope der_T(start = 0) "Time derivative of temperature (= der(T))";
+    Modelica.Units.SI.Temperature T(start = 353.15, fixed = true, displayUnit = "degC") "Temperature of element";
+    Modelica.Units.SI.TemperatureSlope der_T(start = 0) "Time derivative of temperature (= der(T))";
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port annotation(Placement(transformation(origin = {0, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 90), visible = true, iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-    parameter Modelica.SIunits.SpecificHeatCapacity Ccoffee = 4180 "Specific heat capacity of the coffee.";
-    parameter Modelica.SIunits.SpecificHeatCapacity Cmilk = 3770 "Specific heat capacity of the milk.";
-    Modelica.SIunits.HeatCapacity C "Heat capacity of the coffee and milk mixture";
-    parameter Modelica.SIunits.Volume Vcoffee(displayUnit = "ml") = 0.0002 "Volume of the coffee.";
-    parameter Modelica.SIunits.Volume Vmilk(displayUnit = "ml") = 1e-05 "Volume of the added milk.";
-    parameter Modelica.SIunits.Time AddTime = 300 "The time at which milk is added.";
-    parameter Modelica.SIunits.Temperature MilkTemperature = 278.15 "Temperature of the added milk.";
+    parameter Modelica.Units.SI.SpecificHeatCapacity Ccoffee = 4180 "Specific heat capacity of the coffee.";
+    parameter Modelica.Units.SI.SpecificHeatCapacity Cmilk = 3770 "Specific heat capacity of the milk.";
+    Modelica.Units.SI.HeatCapacity C "Heat capacity of the coffee and milk mixture";
+    parameter Modelica.Units.SI.Volume Vcoffee(displayUnit = "ml") = 0.0002 "Volume of the coffee.";
+    parameter Modelica.Units.SI.Volume Vmilk(displayUnit = "ml") = 1e-05 "Volume of the added milk.";
+    parameter Modelica.Units.SI.Time AddTime = 300 "The time at which milk is added.";
+    parameter Modelica.Units.SI.Temperature MilkTemperature = 278.15 "Temperature of the added milk.";
   equation
     C = if time > AddTime then Ccoffee * Vcoffee * 1000 + Cmilk * Vmilk * 1000 else Ccoffee * Vcoffee * 1000;
     when time > AddTime then
@@ -194,15 +194,15 @@ compute C:
   end Coffee;
 
   model CoffeeWithMilkPort "Lumped thermal element storing heat"
-    Modelica.SIunits.Temperature T(start = 353.15, fixed = true, displayUnit = "degC") "Temperature of element";
-    Modelica.SIunits.Enthalpy H annotation(Dialog(group = "Variables"));
+    Modelica.Units.SI.Temperature T(start = 353.15, fixed = true, displayUnit = "degC") "Temperature of element";
+    Modelica.Units.SI.Enthalpy H annotation(Dialog(group = "Variables"));
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port annotation(Placement(transformation(origin = {0, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 90), visible = true, iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-    parameter Modelica.SIunits.SpecificHeatCapacity Ccoffee = 4180 "Specific heat capacity of the coffee.";
-    parameter Modelica.SIunits.SpecificHeatCapacity Cmilk = 3770 "Specific heat capacity of the milk.";
-    Modelica.SIunits.HeatCapacity C "Heat capacity of the coffee and milk mixture";
-    parameter Modelica.SIunits.Volume Vcoffee(displayUnit = "ml") = 0.0002 "Volume of the coffee.";
-    parameter Modelica.SIunits.Temperature MilkTemperature = 278.15 "Temperature of the added milk.";
-    Modelica.SIunits.Volume Vmilk(displayUnit = "ml", start = 0, fixed = true) "Volume of the added milk.";
+    parameter Modelica.Units.SI.SpecificHeatCapacity Ccoffee = 4180 "Specific heat capacity of the coffee.";
+    parameter Modelica.Units.SI.SpecificHeatCapacity Cmilk = 3770 "Specific heat capacity of the milk.";
+    Modelica.Units.SI.HeatCapacity C "Heat capacity of the coffee and milk mixture";
+    parameter Modelica.Units.SI.Volume Vcoffee(displayUnit = "ml") = 0.0002 "Volume of the coffee.";
+    parameter Modelica.Units.SI.Temperature MilkTemperature = 278.15 "Temperature of the added milk.";
+    Modelica.Units.SI.Volume Vmilk(displayUnit = "ml", start = 0, fixed = true) "Volume of the added milk.";
     Modelica.Blocks.Interfaces.RealInput u annotation(Placement(visible = true, transformation(origin = {0, 80}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 60}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   equation
     C = Ccoffee * Vcoffee * 1000 + Cmilk * Vmilk * 1000;
@@ -386,9 +386,9 @@ compute C:
   model Milk
     Modelica.Blocks.Sources.Pulse pulse(nperiod = 1, width = 100, period = AddDuration, amplitude = AddedVolume / AddDuration, startTime = AddTime) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
     Modelica.Blocks.Interfaces.RealOutput y annotation(Placement(visible = true, transformation(origin = {60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -100}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-    parameter Modelica.SIunits.Time AddTime = 300 "The time at which milk is added.";
-    parameter Modelica.SIunits.Time AddDuration = 1 "Duration of the adding of milk.";
-    parameter Modelica.SIunits.Volume AddedVolume(displayUnit = "ml") = 1e-05 "Amount of milk added.";
+    parameter Modelica.Units.SI.Time AddTime = 300 "The time at which milk is added.";
+    parameter Modelica.Units.SI.Time AddDuration = 1 "Duration of the adding of milk.";
+    parameter Modelica.Units.SI.Volume AddedVolume(displayUnit = "ml") = 1e-05 "Amount of milk added.";
   equation
     connect(pulse.y, y) annotation(Line(visible = true, points = {{-19, 0}, {19, 0}}, color = {1, 37, 163}));
     annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics = {Bitmap(visible = true, origin = {7.97, -0}, imageSource = "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
@@ -504,7 +504,7 @@ vOVH6bCPFhboeYrATKACSyOZVE1whdLM1ZwNSIgaIlPEFJqCAYGIIjzEhkpo9RQqu986QhyiFJmE0eOI
       Coffee coffee(AddTime = AddTime) annotation(Placement(visible = true, transformation(origin = {-40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = -360)));
       Modelica.Thermal.HeatTransfer.Components.ThermalConductor mug(G = 0.54) annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       Modelica.Thermal.HeatTransfer.Sources.FixedTemperature ambient(T = 293.15) annotation(Placement(visible = true, transformation(origin = {40, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-      parameter Modelica.SIunits.Time AddTime = 300 "The time at which milk is added.";
+      parameter Modelica.Units.SI.Time AddTime = 300 "The time at which milk is added.";
     equation
       connect(ambient.port, mug.port_b) annotation(Line(visible = true, points = {{10, 0}, {-10, 0}}, color = {191, 0, 0}));
       connect(coffee.port, mug.port_a) annotation(Line(visible = true, points = {{-10, 0}, {10, 0}}, color = {191, 0, 0}));
@@ -548,7 +548,7 @@ vOVH6bCPFhboeYrATKACSyOZVE1whdLM1ZwNSIgaIlPEFJqCAYGIIjzEhkpo9RQqu986QhyiFJmE0eOI
 
       model ArbitraryExponentConductor "Lumped thermal element transporting heat without storing it"
         extends Modelica.Thermal.HeatTransfer.Interfaces.Element1D;
-        parameter Modelica.SIunits.ThermalConductance G "Constant thermal conductance of material";
+        parameter Modelica.Units.SI.ThermalConductance G "Constant thermal conductance of material";
         parameter Real x = 1 "Arbitrary exponent for the conduction";
       equation
         Q_flow = G * dT ^ x;
@@ -619,7 +619,7 @@ e.g., with one of the following equations:
       Modelica.Thermal.HeatTransfer.Components.BodyRadiation potRadiation(Gr(displayUnit = "cm2") = 0.01) annotation(Placement(visible = true, transformation(origin = {30, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
       model Evaporation "Fixed heat flow boundary condition"
-        parameter Modelica.SIunits.ThermalConductance k "Heat flow rate at port";
+        parameter Modelica.Units.SI.ThermalConductance k "Heat flow rate at port";
         Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation(Placement(transformation(extent = {{90, -10}, {110, 10}}, rotation = 0)));
       equation
         port.Q_flow = k * port.T;
@@ -662,7 +662,7 @@ in order to simulate temperature dependent losses (which are given with respect 
       Modelica.Thermal.HeatTransfer.Components.BodyRadiation potRadiation(Gr(displayUnit = "cm2") = 0.01) annotation(Placement(visible = true, transformation(origin = {30, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
       model ArbitraryExponentEvaporation "Fixed heat flow boundary condition"
-        parameter Modelica.SIunits.ThermalConductance k "Heat flow rate at port";
+        parameter Modelica.Units.SI.ThermalConductance k "Heat flow rate at port";
         parameter Real z = 1 "Arbitrary exponent for the conduction";
         Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation(Placement(transformation(extent = {{90, -10}, {110, 10}}, rotation = 0)));
       equation
@@ -694,5 +694,5 @@ in order to simulate temperature dependent losses (which are given with respect 
       annotation(experiment(StopTime = 3000, __Wolfram_SynchronizeWithRealTime = false), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
     end Experiment4;
   end Experiments;
-  annotation(uses(Modelica(version="3.2.2")), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
+  annotation(uses(Modelica(version="4.0.0")), Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
 end CoffeeAndMilk;
